@@ -19,6 +19,9 @@ Plugin 'prabirshrestha/asyncomplete.vim'
 Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 Plugin 'jacoborus/tender.vim'
 Plugin 'preservim/nerdtree'
+Plugin 'ajmwagar/vim-deus'
+Plugin 'vim-airline/vim-airline'
+Plugin 'jiangmiao/auto-pairs'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -27,8 +30,6 @@ filetype plugin indent on    " required
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-let g:NERDTreeDirArrowExpandable = '?'
-let g:NERDTreeDirArrowCollapsible = '?'
 
 " vim-lsp
 function! s:on_lsp_buffer_enabled() abort
@@ -47,15 +48,19 @@ function! s:on_lsp_buffer_enabled() abort
 endfunction
 
 let g:lsp_diagnostics_enabled = 1
-let g:lsp_signs_enabled = 1
+let g:lsp_signs_enabled = 0
 let g:lsp_signs_error = {'text': '?'}
+
+" Airline
+"AirlineTheme tender
 
 
 " asyncomplete.vim
 
 let g:asyncomplete_auto_completeopt = 1
 
-"autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" vim-go
+let g:go_fmt_command = "goimports"
 
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -65,7 +70,15 @@ if (has("termguicolors"))
 "	set termguicolors
 endif
 
-"colorscheme tender
+set t_Co=256
+set termguicolors
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+set background=dark    " Setting dark mode
+colorscheme deus
+let g:deus_termcolors=256
 syntax on
 set number
 set scl=number
